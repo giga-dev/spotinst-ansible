@@ -45,3 +45,4 @@ addVar "product_type" "PRODUCT_TYPE"
 addVar "spotinst_group_name" "SPOTINST_GROUP_NAME"
 addVar "spotinst_instances" "SPOTINST_INSTANCES"
 
+addVar "hosts_file" "HOSTS_FILE"
