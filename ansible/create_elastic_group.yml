@@ -1,0 +1,47 @@
+---
+- name: Create Machines For Automation
+  connection: local
+  gather_facts: False
+  hosts: localhost
+  tasks:
+    - name: "create elastic group"
+      spotinst_aws_elastigroup:
+        state: present
+        risk: 100
+        availability_vs_cost: balanced
+        availability_zones:
+          - name: "{{ availability_zone_region }}"
+            subnet_id: "{{ availability_zone_subnet_id }}"
+        image_id: "{{ ami_id }}"
+        key_pair: "{{ key_name }}"
+        min_size: 0
+        max_size: "{{ spotinst_instances }}"
+        target: "{{ spotinst_instances }}"
+        unit: instance
+        monitoring: True
+        name: "{{ spotinst_group_name }}"
+        on_demand_instance_type: "{{ instance_type }}"
+        product: "{{product_type}}"
+        # - tal-lb-1
+        security_group_ids:
+          - "{{ security_group }}"
+        spot_instance_types:
+          - "{{ instance_type }}"
+        wait_for_instances: True
+        wait_timeout: 600
+        tags:
+          - Name: "{{ tag_name }}"
+        #state: absent
+        block_device_mappings:
+          - device_name: '/dev/xvda'
+            ebs:
+              volume_size: 80
+              volume_type: gp2
+              deleteOnTermination: True
+      register: ec2
+#    - name: Wait for SSH to come up
+#      wait_for: host={{ item.public_ip }} port=22 delay=0 timeout=600 state=started
+#      with_items: "{{ ec2.instances }}"
+    - name: Store public ips to all_hosts file
+      shell: printf "{{ item.public_ip }}"\\n >> "{{hosts_file}}"
+      with_items: "{{ ec2.instances }}"

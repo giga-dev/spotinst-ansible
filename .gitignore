@@ -1,0 +1,4 @@
+env.sh
+*.iml
+all_hosts
+*/group_vars/all

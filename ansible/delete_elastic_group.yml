@@ -1,0 +1,36 @@
+---
+- name: Delete Machines For Automation
+  connection: local
+  gather_facts: False
+  hosts: localhost
+  tasks:
+    - name: "delete elastic group machines"
+      spotinst_aws_elastigroup:
+        state: absent
+        risk: 100
+        availability_vs_cost: balanced
+        availability_zones:
+          - name: "{{ availability_zone_region }}"
+            subnet_id: "{{ availability_zone_subnet_id }}"
+        image_id: "{{ ami_id }}"
+        key_pair: "{{ key_name }}"
+        min_size: 0
+        max_size: "{{ spotinst_instances }}"
+        target: "{{ spotinst_instances }}"
+        unit: instance
+        monitoring: True
+        name: "{{ spotinst_group_name }}"
+        on_demand_instance_type: "{{ instance_type }}"
+        product: "{{product_type}}"
+        # - tal-lb-1
+        security_group_ids:
+          - "{{ security_group }}"
+        spot_instance_types:
+          - "{{ instance_type }}"
+        wait_for_instances: True
+        wait_timeout: 600
+        tags:
+          - Name: "{{ tag_name }}"
+        #state: absent
+    - name: Delete all_hosts file
+      shell: rm -rf "{{hosts_file}}"
