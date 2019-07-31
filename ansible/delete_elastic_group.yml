@@ -30,7 +30,7 @@
         wait_for_instances: True
         wait_timeout: 600
         tags:
-          - Name: "{{ tag_name }}"
+          - Name: "{{ spotinst_group_name }}"
         #state: absent
     - name: Delete all_hosts file
       shell: rm -rf "{{hosts_file}}.public" "{{hosts_file}}.private"
