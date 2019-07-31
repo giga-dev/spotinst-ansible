@@ -33,4 +33,4 @@
           - Name: "{{ tag_name }}"
         #state: absent
     - name: Delete all_hosts file
-      shell: rm -rf "{{hosts_file}}"
+      shell: rm -rf "{{hosts_file}}.public" "{{hosts_file}}.private"
