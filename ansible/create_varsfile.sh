@@ -29,7 +29,6 @@ function addVar {
 
 setup
 
-addVar "tag_name" "TAG_NAME"
 addVar "key_name" "KEY_NAME"
 addVar "aws_region" "AWS_REGION"
 addVar "vpc_id" "VPC_ID"

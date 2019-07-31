@@ -30,7 +30,7 @@
         wait_for_instances: True
         wait_timeout: 600
         tags:
-          - Name: "{{ tag_name }}"
+          - Name: "{{ spotinst_group_name }}"
         #state: absent
         block_device_mappings:
           - device_name: '/dev/xvda'
@@ -39,9 +39,13 @@
               volume_type: gp2
               deleteOnTermination: True
       register: ec2
-#    - name: Wait for SSH to come up
-#      wait_for: host={{ item.public_ip }} port=22 delay=0 timeout=600 state=started
-#      with_items: "{{ ec2.instances }}"
+    - name: Wait for SSH to come up
+      wait_for: host={{ item.public_ip }} port=22 delay=0 timeout=600 state=started
+      with_items: "{{ ec2.instances }}"
     - name: Store public ips to all_hosts file
-      shell: printf "{{ item.public_ip }}"\\n >> "{{hosts_file}}"
+      shell: printf "{{ item.public_ip }}"\\n >> "{{hosts_file}}.public"
+      with_items: "{{ ec2.instances }}"
+
+    - name: Store private ips to all_hosts file
+      shell: printf "{{ item.private_ip }}"\\n >> "{{hosts_file}}.private"
       with_items: "{{ ec2.instances }}"
