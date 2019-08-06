@@ -45,3 +45,4 @@ addVar "spotinst_group_name" "SPOTINST_GROUP_NAME"
 addVar "spotinst_instances" "SPOTINST_INSTANCES"
 
 addVar "hosts_file" "HOSTS_FILE"
+addVar "java_url" "JAVA_URL"

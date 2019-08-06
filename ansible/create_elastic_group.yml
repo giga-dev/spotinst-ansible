@@ -3,9 +3,12 @@
   connection: local
   gather_facts: False
   hosts: localhost
+  vars:
+    userdata: "{{ lookup('file', 'user-data.sh') }}"
   tasks:
     - name: "create elastic group"
       spotinst_aws_elastigroup:
+        user_data: "{{ userdata | replace('JAVA_URL_HERE', java_url) | b64encode }}"
         state: present
         risk: 100
         availability_vs_cost: balanced
