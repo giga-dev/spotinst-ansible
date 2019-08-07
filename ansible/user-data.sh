@@ -4,17 +4,19 @@ function run_command_ec2_user {
     su ec2-user -c "$@"
 }
 
-
-function download {
-    local url=$1
-    local target=$2
-
-    wget ${url} -P ${target}
+function run_command_root {
+    sudo su -c "$(declare -f $1) ; $1"
 }
 
 function install_java {
+    function download {
+        local url=$1
+        local target=$2
+
+        wget ${url} -P ${target}
+    }
     local javaLocations=/opt/java
-    local source=$1
+    local source=JAVA_URL_HERE
     local filename=$(basename ${source})
     local tmpFolder=$(mktemp -d)
 
@@ -37,7 +39,6 @@ function setDefaultJava {
     echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc
 }
 
-install_java JAVA_URL_HERE
+run_command_root install_java
 
-export -f setDefaultJava
-run_command_ec2_user setDefaultJava
+setDefaultJava

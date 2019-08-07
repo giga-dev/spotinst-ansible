@@ -2,4 +2,4 @@
 
 source env.sh
 
-ansible-playbook -i hosts create_elastic_group.yml
+ansible-playbook -i hosts --private-key ${PEM_FILE_LOCATION} create_elastic_group.yml
