@@ -42,6 +42,8 @@
     - name: Wait for SSH to come up
       wait_for: host={{ item.public_ip }} port=22 delay=0 timeout=600 state=started
       with_items: "{{ ec2.instances }}"
+    - name: Delete all_hosts file
+      shell: rm -rf "{{hosts_file}}.public" "{{hosts_file}}.private"
     - name: Store public ips to all_hosts file
       shell: printf "{{ item.public_ip }}"\\n >> "{{hosts_file}}.public"
       with_items: "{{ ec2.instances }}"
