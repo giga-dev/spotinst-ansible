@@ -2,3 +2,5 @@ env.sh
 *.iml
 all_hosts
 */group_vars/all
+*.retry
+ansible/group_vars/all_example
