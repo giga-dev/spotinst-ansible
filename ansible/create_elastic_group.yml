@@ -29,6 +29,9 @@
           - "{{ instance_type }}"
         wait_for_instances: True
         wait_timeout: 600
+        network_interfaces:
+          - associate_public_ip_address: true
+            device_index: 0
         tags:
           - Name: "{{ spotinst_group_name }}"
         #state: absent
