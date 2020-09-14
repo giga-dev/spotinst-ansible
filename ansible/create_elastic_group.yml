@@ -32,8 +32,8 @@
         network_interfaces:
           - associate_public_ip_address: true
             device_index: 0
-#        fallback_to_od: false
-        health_check_grace_period: 600
+        fallback_to_od: false
+#        health_check_grace_period: 600
         tags:
           - Name: "{{ spotinst_group_name }}"
         #state: absent
