@@ -73,8 +73,8 @@
       args:
         executable: /bin/bash
     - name: "Link linc.musl"
-        shell: "ln -s /lib/libc.musl-x86_64.so.1 /usr/lib/libc.musl-x86_64.so.1"
-        become: true
+      shell: "ln -s /lib/libc.musl-x86_64.so.1 /usr/lib/libc.musl-x86_64.so.1"
+      become: true
     - name: "Env LD_LIBRARY_PATH"
-        shell: "export LD_LIBRARY_PATH /usr/lib"
-        become: true
+      shell: "export LD_LIBRARY_PATH /usr/lib"
+      become: true
