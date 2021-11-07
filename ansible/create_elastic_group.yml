@@ -72,8 +72,13 @@
       shell: "{{ userdata }}"
       args:
         executable: /bin/bash
+    - name: "Install fontconfig"
+      shell: "apk add --no-cache fontconfig"
+      become: true
     - name: "Link linc.musl"
-      shell: "ln -s /lib/libc.musl-x86_64.so.1 /usr/lib/libc.musl-x86_64.so.1"
+      shell: "ln -s /usr/lib/libfontconfig.so.1 /usr/lib/libfontconfig.so && \
+              ln -s /lib/libuuid.so.1 /usr/lib/libuuid.so.1 && \
+              ln -s /lib/libc.musl-x86_64.so.1 /usr/lib/libc.musl-x86_64.so.1"
       become: true
     - name: "Env LD_LIBRARY_PATH"
       shell: "export LD_LIBRARY_PATH=/usr/lib"
