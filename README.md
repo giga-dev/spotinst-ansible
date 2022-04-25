@@ -16,7 +16,7 @@ Scripts to be used:
 - `./stop.sh` - WIll delete the elastic group in spotinst and terminate the related machines
 
 
-
+jenkins-rn.sh - is a multijob running from Giga jenkins while running Spotinst-Create-Machines job
 
 
 
